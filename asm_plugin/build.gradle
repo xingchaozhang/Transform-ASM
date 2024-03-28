@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.gradle
+    implementation gradleApi()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        ASMPlugin(MavenPublication) {
+            from components.java
+            groupId 'com.enjoy.plugin'
+            artifactId 'asm'
+            version '1.0'
+        }
+    }
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
